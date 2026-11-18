@@ -4,7 +4,7 @@ Run agent-generated Python and JavaScript in fixed WebAssembly interpreters, wit
 
 SandboxRun is a preview for small, ephemeral calculations and transformations. It does not offer a production SLA or claim immunity to runtime vulnerabilities.
 
-![SandboxRun execution workbench](docs/screenshots/workbench.png)
+![SandboxRun execution workbench](docs/screenshots/workbench.jpg)
 
 ## Execution model
 
