@@ -1,0 +1,6 @@
+/target/
+/work/
+/.vercel/
+/node_modules/
+.env*
+/sdk/dist/
