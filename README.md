@@ -1,5 +1,7 @@
 # SandboxRun
 
+[Open the deployed preview](https://sandboxrun-l1y3f6npl-braveeminent-gmailcoms-projects.vercel.app) · [Launch evidence](LAUNCH.md)
+
 Run agent-generated Python and JavaScript in fixed WebAssembly interpreters, with explicit resource budgets and an execution receipt. Rust + Wasmtime at the execution boundary; HTTP and TypeScript interfaces for agent builders.
 
 SandboxRun is a preview for small, ephemeral calculations and transformations. It does not offer a production SLA or claim immunity to runtime vulnerabilities.
@@ -166,6 +168,8 @@ Analytics records allowlisted page/run events and execution language/status/dura
 The machine-readable HTTP contract is in [web/openapi.json](web/openapi.json). Libraries are currently distributed through this repository; no npm or crates.io release is claimed.
 
 ## Known gaps
+
+GitHub-hosted CI is currently blocked before execution by the account’s billing lock. Local Rust/SDK tests and hosted smoke tests pass; see LAUNCH.md for the distinction.
 
 - Experimental preview; no production SLA, external security certification, or guarantee against runtime/kernel vulnerabilities.
 - Fuel is not CPU-time accounting, and guest memory is not a cap on all host allocations.

@@ -1,0 +1,28 @@
+{
+  "date": "2026-11-19",
+  "local_rust_unit_tests": {
+    "passed": 5,
+    "command": "cargo test --release --locked"
+  },
+  "adversarial_checks": {
+    "passed": 40,
+    "total": 40,
+    "independently_rerun": true
+  },
+  "sdk_unit_tests": {
+    "passed": 4
+  },
+  "sdk_end_to_end": {
+    "local": "passed",
+    "preview": "passed"
+  },
+  "clippy": "passed with -D warnings",
+  "cargo_advisories": 0,
+  "npm_vulnerabilities": 0,
+  "github_ci": {
+    "status": "blocked_before_runner",
+    "reason": "Account billing lock",
+    "run_url": "https://github.com/SayedZahur786/SandboxRun/actions/runs/44403292849"
+  },
+  "preview": "https://sandboxrun-l1y3f6npl-braveeminent-gmailcoms-projects.vercel.app"
+}

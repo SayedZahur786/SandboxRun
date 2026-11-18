@@ -1,0 +1,207 @@
+{
+  "deployment": "https://sandboxrun-l1y3f6npl-braveeminent-gmailcoms-projects.vercel.app",
+  "date": "2026-11-19",
+  "engine_initialization_ms": [
+    647.192,
+    670.087
+  ],
+  "first_observed_health_http_ms": 706,
+  "methodology": "Engine initialization timers read from Vercel runtime logs. HTTP health measured from client in India; not an isolated measure of provider scheduling. Observed log sample is bounded, not total product usage.",
+  "observed_analytics_events": [
+    {
+      "event": "page_view"
+    },
+    {
+      "duration_ms": 335.72756,
+      "event": "execution",
+      "language": "python",
+      "status": "ok"
+    },
+    {
+      "event": "run_clicked"
+    },
+    {
+      "event": "page_view"
+    },
+    {
+      "duration_ms": 1.769159,
+      "event": "execution",
+      "language": "javascript",
+      "status": "ok"
+    },
+    {
+      "duration_ms": 1.3838780000000002,
+      "event": "execution",
+      "language": "javascript",
+      "status": "ok"
+    },
+    {
+      "duration_ms": 1.430184,
+      "event": "execution",
+      "language": "javascript",
+      "status": "ok"
+    },
+    {
+      "duration_ms": 1.458305,
+      "event": "execution",
+      "language": "javascript",
+      "status": "ok"
+    },
+    {
+      "duration_ms": 1.8198489999999998,
+      "event": "execution",
+      "language": "javascript",
+      "status": "ok"
+    },
+    {
+      "duration_ms": 1.381144,
+      "event": "execution",
+      "language": "javascript",
+      "status": "ok"
+    },
+    {
+      "duration_ms": 1.5814679999999999,
+      "event": "execution",
+      "language": "javascript",
+      "status": "ok"
+    },
+    {
+      "duration_ms": 1.4401780000000002,
+      "event": "execution",
+      "language": "javascript",
+      "status": "ok"
+    },
+    {
+      "duration_ms": 1.378829,
+      "event": "execution",
+      "language": "javascript",
+      "status": "ok"
+    },
+    {
+      "duration_ms": 1.586872,
+      "event": "execution",
+      "language": "javascript",
+      "status": "ok"
+    },
+    {
+      "duration_ms": 309.35941,
+      "event": "execution",
+      "language": "python",
+      "status": "ok"
+    },
+    {
+      "duration_ms": 305.803129,
+      "event": "execution",
+      "language": "python",
+      "status": "ok"
+    },
+    {
+      "duration_ms": 309.572303,
+      "event": "execution",
+      "language": "python",
+      "status": "ok"
+    },
+    {
+      "duration_ms": 307.216221,
+      "event": "execution",
+      "language": "python",
+      "status": "ok"
+    },
+    {
+      "duration_ms": 308.310255,
+      "event": "execution",
+      "language": "python",
+      "status": "ok"
+    },
+    {
+      "duration_ms": 308.146951,
+      "event": "execution",
+      "language": "python",
+      "status": "ok"
+    },
+    {
+      "duration_ms": 307.398018,
+      "event": "execution",
+      "language": "python",
+      "status": "ok"
+    },
+    {
+      "duration_ms": 306.438538,
+      "event": "execution",
+      "language": "python",
+      "status": "ok"
+    },
+    {
+      "duration_ms": 307.351002,
+      "event": "execution",
+      "language": "python",
+      "status": "ok"
+    },
+    {
+      "duration_ms": 303.177882,
+      "event": "execution",
+      "language": "python",
+      "status": "ok"
+    },
+    {
+      "duration_ms": 306.62264,
+      "event": "execution",
+      "language": "python",
+      "status": "ok"
+    },
+    {
+      "duration_ms": 322.89491399999997,
+      "event": "execution",
+      "language": "python",
+      "status": "ok"
+    },
+    {
+      "duration_ms": 38.721911,
+      "event": "execution",
+      "language": "python",
+      "status": "ok"
+    },
+    {
+      "duration_ms": 31.039442,
+      "event": "execution",
+      "language": "python",
+      "status": "capability_denied"
+    },
+    {
+      "duration_ms": 31.829527000000002,
+      "event": "execution",
+      "language": "python",
+      "status": "memory_limit"
+    },
+    {
+      "duration_ms": 5.045829,
+      "event": "execution",
+      "language": "javascript",
+      "status": "output_limit"
+    },
+    {
+      "duration_ms": 9.748666,
+      "event": "execution",
+      "language": "javascript",
+      "status": "time_limit"
+    },
+    {
+      "duration_ms": 0.765982,
+      "event": "execution",
+      "language": "javascript",
+      "status": "fuel_limit"
+    },
+    {
+      "duration_ms": 2.003735,
+      "event": "execution",
+      "language": "javascript",
+      "status": "ok"
+    },
+    {
+      "duration_ms": 338.906791,
+      "event": "execution",
+      "language": "python",
+      "status": "ok"
+    }
+  ]
+}

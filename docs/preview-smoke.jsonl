@@ -1,0 +1,4 @@
+{"check":"main_flow","language":"python","status":"ok","duration_ms":338.906791}
+{"check":"main_flow","language":"javascript","status":"ok","duration_ms":2.003735}
+{"check":"limit_enforcement","fuel":"fuel_limit","time":"time_limit","output":"output_limit"}
+{"check":"launch_smoke","memory":"memory_limit","blocking_wait":"capability_denied","host_filesystem":"DENIED","policy_pages":"passed","analytics_allowlist":"passed"}
