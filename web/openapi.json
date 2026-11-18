@@ -1,0 +1,18 @@
+{
+  "openapi": "3.1.0",
+  "info": {"title":"SandboxRun API","version":"0.1.0","description":"Ephemeral Python/JavaScript execution. Guest failures are terminal HTTP200 receipts; clients must not automatically retry."},
+  "servers": [{"url":"/"}],
+  "paths": {
+    "/api/run": {"post": {"operationId":"execute","security":[{"bearerAuth":[]}],"requestBody":{"required":true,"content":{"application/json":{"schema":{"$ref":"#/components/schemas/ExecutionRequest"}}}},"responses":{"200":{"description":"Terminal receipt","content":{"application/json":{"schema":{"$ref":"#/components/schemas/Receipt"}}}},"400":{"description":"Invalid request"},"401":{"description":"Missing or invalid bearer key"},"413":{"description":"Body exceeds150000 bytes"},"429":{"description":"Two executions already active in this instance"},"503":{"description":"Runtime unavailable"}}}},
+    "/api/capabilities": {"get":{"operationId":"capabilities","responses":{"200":{"description":"Interpreter identities, effective defaults and ceilings, denied capabilities"}}}},
+    "/api/health": {"get":{"operationId":"health","responses":{"200":{"description":"Both pinned runtimes initialized"}}}}
+  },
+  "components": {
+    "securitySchemes":{"bearerAuth":{"type":"http","scheme":"bearer"}},
+    "schemas": {
+      "ExecutionRequest":{"type":"object","additionalProperties":false,"required":["language","code"],"properties":{"language":{"enum":["python","javascript"]},"code":{"type":"string","minLength":1,"description":"At most65536 UTF-8 bytes; no NUL"},"stdin":{"type":"string","default":"","description":"At most65536 UTF-8 bytes"},"limits":{"$ref":"#/components/schemas/Limits"}}},
+      "Limits":{"type":"object","additionalProperties":false,"properties":{"fuel":{"type":"integer","minimum":1,"maximum":5000000000,"default":2000000000,"description":"Wasm instruction fuel, not CPU milliseconds"},"memory_bytes":{"type":"integer","minimum":16777216,"maximum":268435456,"default":134217728,"description":"Guest linear memory only"},"wall_time_ms":{"type":"integer","minimum":1,"maximum":5000,"default":2000,"description":"Guest execution deadline;5ms epoch tick plus host scheduling"},"output_bytes":{"type":"integer","minimum":1,"maximum":65536,"default":16384,"description":"Per stream, including returned valid UTF-8 text"}}},
+      "Receipt":{"type":"object","required":["request_id","status","stdout","stderr","duration_ms","fuel_consumed","limits","runtime","output_truncated"],"properties":{"request_id":{"type":"string","format":"uuid"},"status":{"enum":["ok","guest_error","fuel_limit","time_limit","memory_limit","output_limit","capability_denied","trap"]},"stdout":{"type":"string"},"stderr":{"type":"string"},"duration_ms":{"type":"number"},"fuel_consumed":{"type":"integer"},"limits":{"$ref":"#/components/schemas/Limits"},"runtime":{"type":"string"},"output_truncated":{"type":"boolean"}}}
+    }
+  }
+}

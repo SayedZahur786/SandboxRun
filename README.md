@@ -163,6 +163,8 @@ Set a unique production `SANDBOXRUN_API_KEY` in the deployment environment; neve
 
 Analytics records allowlisted page/run events and execution language/status/duration in operational logs. It does not intentionally record source, stdin, stdout, stderr, or credentials. Hosting infrastructure may retain additional request metadata. Read the [privacy](web/privacy.html), [terms](web/terms.html), and [security](web/security.html) pages before sending sensitive data.
 
+The machine-readable HTTP contract is in [web/openapi.json](web/openapi.json). Libraries are currently distributed through this repository; no npm or crates.io release is claimed.
+
 ## Known gaps
 
 - Experimental preview; no production SLA, external security certification, or guarantee against runtime/kernel vulnerabilities.
