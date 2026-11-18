@@ -34,3 +34,7 @@ wat = "1"
 [profile.release]
 opt-level = 2
 strip = true
+
+[build-dependencies]
+wasmtime = { version = "=50.0.2", default-features = false, features = ["cranelift", "runtime", "std"] }
+sha2 = "0.10"
