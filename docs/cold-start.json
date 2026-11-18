@@ -1,0 +1,23 @@
+{
+  "measured_at": "2026-11-18T21:23:43.194Z",
+  "platform": "darwin arm64",
+  "profile": "release",
+  "samples": [
+    {
+      "sample": 1,
+      "process_to_ready_ms": 1077.606417,
+      "engine_init_ms": 93.231
+    },
+    {
+      "sample": 2,
+      "process_to_ready_ms": 49.676334,
+      "engine_init_ms": 44.935
+    },
+    {
+      "sample": 3,
+      "process_to_ready_ms": 48.66754199999991,
+      "engine_init_ms": 44.599
+    }
+  ],
+  "methodology": "Three fresh OS processes; engine init from initialization timer, process readiness from spawn through successful HTTP health response, polling interval10ms. File-system caches are not flushed. Not a Vercel platform cold-start measurement."
+}
