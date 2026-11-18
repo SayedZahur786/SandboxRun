@@ -11,7 +11,7 @@ const snippets = {
     transform: `// A small transformation for an agent tool loop.\nconst orders = [\n  { item: "keyboard", price: 84, quantity: 2 },\n  { item: "cable", price: 12, quantity: 3 },\n];\n\nconst result = {\n  total: orders.reduce((sum, o) => sum + o.price * o.quantity, 0),\n  items: orders.reduce((sum, o) => sum + o.quantity, 0),\n};\n\nconsole.log(JSON.stringify(result, null, 2));`,
     calculate: `const values = [12, 19, 24, 31, 42];\nconst mean = values.reduce((sum, x) => sum + x, 0) / values.length;\nconst variance = values.reduce((sum, x) => sum + (x - mean) ** 2, 0) / values.length;\nconsole.log("Mean:", mean);\nconsole.log("Standard deviation:", Math.sqrt(variance).toFixed(3));`,
     loop: `// This run should terminate when a resource budget is reached.\n// The receipt reports the actual limit reached.\nwhile (true) {}`,
-    filesystem: `// This interpreter does not provide Node.js filesystem APIs.\n// The missing capability produces an expected guest error.\nconst fs = require("node:fs");\nconsole.log(fs.readFileSync("/etc/passwd", "utf8"));`
+    filesystem: `// QuickJS exposes std helpers, but no host directories are granted.\nconst file = std.open("/etc/passwd", "r");\nif (file === null) {\n  console.log("Denied: host file is not accessible.");\n} else {\n  console.log(file.readAsString());\n  file.close();\n}`
   }
 };
 let running = false;
