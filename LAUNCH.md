@@ -43,6 +43,8 @@ Date: 19 November 2026 (Asia/Kolkata). Release scope: authenticated experimental
 
 GitHub-hosted CI is **blocked by the account's billing lock**, before a runner started. GitHub's annotation says: “The job was not started because your account is locked due to a billing issue.” This is not a passing CI run and not a failing application test. All listed local and hosted smoke tests were actually executed and passed. The workflow is retained for use after the owner resolves that account restriction. [Blocked run](https://github.com/SayedZahur786/SandboxRun/actions/runs/44403292849).
 
+The verified release was also promoted to [the stable app URL](https://sandboxrun-nu.vercel.app), where the full smoke script passed again. [Production smoke](docs/production-smoke.jsonl), [observed security headers](docs/security-headers.json).
+
 ## Rollback and incident procedure
 
 If a preview regression or suspected isolation issue appears, disable execution immediately by rotating/removing SANDBOXRUN_API_KEY in the affected Vercel environment and redeploying, or disable the deployment through Vercel. Revoke the old credential; do not rely on changing only the local file. Preserve request metadata and test evidence without copying guest content into public issues. Restore a previously verified deployment through Vercel's deployment controls, then run scripts/e2e.mjs against its URL before distributing it. For the first release, there is no earlier known-good public release; disable execution while fixing it. Report vulnerabilities through the repository's private security-reporting channel.

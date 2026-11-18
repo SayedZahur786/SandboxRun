@@ -1,6 +1,6 @@
 # SandboxRun
 
-[Open the deployed preview](https://sandboxrun-l1y3f6npl-braveeminent-gmailcoms-projects.vercel.app) · [Launch evidence](LAUNCH.md)
+[Live app](https://sandboxrun-nu.vercel.app) · [Tested preview](https://sandboxrun-l1y3f6npl-braveeminent-gmailcoms-projects.vercel.app) · [Launch evidence](LAUNCH.md)
 
 Run agent-generated Python and JavaScript in fixed WebAssembly interpreters, with explicit resource budgets and an execution receipt. Rust + Wasmtime at the execution boundary; HTTP and TypeScript interfaces for agent builders.
 
