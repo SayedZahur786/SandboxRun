@@ -1,0 +1,10 @@
+{
+  "runtime": "QuickJS-NG",
+  "version": "0.18.0",
+  "url": "https://github.com/quickjs-ng/quickjs/releases/download/v0.18.0/qjs-wasi.wasm",
+  "sha256": "2c218412cb8b17e46ee91bea7556ec38f5b9b6bd6312fddd3ceeed14aa71eaaa",
+  "target": "wasm32-wasip1",
+  "arguments": ["qjs", "--std", "-e", "SOURCE"],
+  "host_preopens": [],
+  "host_environment": []
+}

@@ -178,6 +178,7 @@ impl Sandbox {
         let start = Instant::now();
         let mut config = Config::new();
         config
+            .concurrency_support(false)
             .consume_fuel(true)
             .epoch_interruption(true)
             .max_wasm_stack(512 * 1024);
@@ -299,7 +300,9 @@ impl Sandbox {
             match &result {
                 Ok(_) => "ok",
                 Err(e) => {
-                    if let Some(exit) = e.downcast_ref::<wasmtime_wasi::I32Exit>() {
+                    if e.downcast_ref::<CapabilityDenied>().is_some() {
+                        "capability_denied"
+                    } else if let Some(exit) = e.downcast_ref::<wasmtime_wasi::I32Exit>() {
                         if exit.0 == 0 { "ok" } else { "guest_error" }
                     } else if let Some(trap) = e.downcast_ref::<Trap>() {
                         match trap {
@@ -377,7 +380,9 @@ fn make_linker(engine: &Engine) -> Result<Linker<State>> {
     linker.func_wrap(
         "wasi_snapshot_preview1",
         "poll_oneoff",
-        |_: i32, _: i32, _: i32, _: i32| -> i32 { 52 },
+        |_: i32, _: i32, _: i32, _: i32| -> Result<i32> {
+            Err(wasmtime::Error::new(CapabilityDenied))
+        },
     )?;
     Ok(linker)
 }
@@ -414,12 +419,11 @@ mod boundary_tests {
                 .call(&mut store, ())?,
             8
         );
-        assert_eq!(
-            instance
-                .get_typed_func::<(), i32>(&mut store, "poll")?
-                .call(&mut store, ())?,
-            52
-        );
+        let denied = instance
+            .get_typed_func::<(), i32>(&mut store, "poll")?
+            .call(&mut store, ())
+            .unwrap_err();
+        assert!(denied.downcast_ref::<CapabilityDenied>().is_some());
         Ok(())
     }
     #[test]
@@ -444,3 +448,12 @@ mod boundary_tests {
         std::fs::remove_file(path).unwrap();
     }
 }
+
+#[derive(Debug)]
+struct CapabilityDenied;
+impl std::fmt::Display for CapabilityDenied {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        write!(f, "blocking WASI waits are disabled")
+    }
+}
+impl std::error::Error for CapabilityDenied {}

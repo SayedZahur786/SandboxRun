@@ -2,6 +2,7 @@ use sha2::{Digest, Sha256};
 fn main() {
     let mut config = wasmtime::Config::new();
     config
+        .concurrency_support(false)
         .consume_fuel(true)
         .epoch_interruption(true)
         .max_wasm_stack(512 * 1024);

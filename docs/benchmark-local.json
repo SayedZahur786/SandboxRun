@@ -1,0 +1,178 @@
+{
+  "measured_at": "2026-11-18T21:20:20.441Z",
+  "base": "http://127.0.0.1:18787",
+  "client_platform": "darwin arm64",
+  "methodology": "One first request followed by ten sequential warm requests per language. First request is not proof of a provider cold start. Startup-to-ready measured separately from server initialization logs. Execution includes fresh WASM instance and interpreter initialization.",
+  "summaries": [
+    {
+      "language": "python",
+      "first_execution_ms": 96.2995,
+      "warm_samples": 10,
+      "warm_p50_ms": 96.260834,
+      "warm_p95_ms": 99.42962499999999
+    },
+    {
+      "language": "javascript",
+      "first_execution_ms": 0.439583,
+      "warm_samples": 10,
+      "warm_p50_ms": 0.309208,
+      "warm_p95_ms": 0.365125
+    }
+  ],
+  "samples": [
+    {
+      "language": "python",
+      "sequence": 0,
+      "client_roundtrip_ms": 112.43829199999999,
+      "execution_ms": 96.2995,
+      "fuel_consumed": 1131867234
+    },
+    {
+      "language": "python",
+      "sequence": 1,
+      "client_roundtrip_ms": 97.83920799999999,
+      "execution_ms": 95.905,
+      "fuel_consumed": 1132575651
+    },
+    {
+      "language": "python",
+      "sequence": 2,
+      "client_roundtrip_ms": 98.55212499999999,
+      "execution_ms": 95.888125,
+      "fuel_consumed": 1132206578
+    },
+    {
+      "language": "python",
+      "sequence": 3,
+      "client_roundtrip_ms": 98.95941700000003,
+      "execution_ms": 96.33550000000001,
+      "fuel_consumed": 1132085542
+    },
+    {
+      "language": "python",
+      "sequence": 4,
+      "client_roundtrip_ms": 98.98437499999994,
+      "execution_ms": 96.13695899999999,
+      "fuel_consumed": 1132463384
+    },
+    {
+      "language": "python",
+      "sequence": 5,
+      "client_roundtrip_ms": 99.09375,
+      "execution_ms": 96.260834,
+      "fuel_consumed": 1131984113
+    },
+    {
+      "language": "python",
+      "sequence": 6,
+      "client_roundtrip_ms": 101.87345900000003,
+      "execution_ms": 99.42962499999999,
+      "fuel_consumed": 1132560673
+    },
+    {
+      "language": "python",
+      "sequence": 7,
+      "client_roundtrip_ms": 100.75362500000006,
+      "execution_ms": 98.3425,
+      "fuel_consumed": 1132109937
+    },
+    {
+      "language": "python",
+      "sequence": 8,
+      "client_roundtrip_ms": 99.84991600000001,
+      "execution_ms": 97.200584,
+      "fuel_consumed": 1131804095
+    },
+    {
+      "language": "python",
+      "sequence": 9,
+      "client_roundtrip_ms": 99.15141599999993,
+      "execution_ms": 96.488542,
+      "fuel_consumed": 1132469940
+    },
+    {
+      "language": "python",
+      "sequence": 10,
+      "client_roundtrip_ms": 98.572,
+      "execution_ms": 96.104833,
+      "fuel_consumed": 1132510450
+    },
+    {
+      "language": "javascript",
+      "sequence": 0,
+      "client_roundtrip_ms": 2.292208999999957,
+      "execution_ms": 0.439583,
+      "fuel_consumed": 3107968
+    },
+    {
+      "language": "javascript",
+      "sequence": 1,
+      "client_roundtrip_ms": 1.9441249999999854,
+      "execution_ms": 0.327167,
+      "fuel_consumed": 3107968
+    },
+    {
+      "language": "javascript",
+      "sequence": 2,
+      "client_roundtrip_ms": 2.098792000000003,
+      "execution_ms": 0.365125,
+      "fuel_consumed": 3107968
+    },
+    {
+      "language": "javascript",
+      "sequence": 3,
+      "client_roundtrip_ms": 0.6670409999999265,
+      "execution_ms": 0.350041,
+      "fuel_consumed": 3107968
+    },
+    {
+      "language": "javascript",
+      "sequence": 4,
+      "client_roundtrip_ms": 1.949624999999969,
+      "execution_ms": 0.309208,
+      "fuel_consumed": 3107968
+    },
+    {
+      "language": "javascript",
+      "sequence": 5,
+      "client_roundtrip_ms": 1.9252089999999953,
+      "execution_ms": 0.281666,
+      "fuel_consumed": 3107968
+    },
+    {
+      "language": "javascript",
+      "sequence": 6,
+      "client_roundtrip_ms": 1.8808329999999387,
+      "execution_ms": 0.266208,
+      "fuel_consumed": 3107968
+    },
+    {
+      "language": "javascript",
+      "sequence": 7,
+      "client_roundtrip_ms": 2.3084160000000793,
+      "execution_ms": 0.340334,
+      "fuel_consumed": 3107968
+    },
+    {
+      "language": "javascript",
+      "sequence": 8,
+      "client_roundtrip_ms": 2.0025829999999587,
+      "execution_ms": 0.31395799999999996,
+      "fuel_consumed": 3107968
+    },
+    {
+      "language": "javascript",
+      "sequence": 9,
+      "client_roundtrip_ms": 1.9198330000001533,
+      "execution_ms": 0.281833,
+      "fuel_consumed": 3107968
+    },
+    {
+      "language": "javascript",
+      "sequence": 10,
+      "client_roundtrip_ms": 1.9107910000000174,
+      "execution_ms": 0.259917,
+      "fuel_consumed": 3107968
+    }
+  ]
+}

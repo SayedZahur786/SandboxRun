@@ -1,0 +1,37 @@
+name: Verify SandboxRun
+on: [push, pull_request]
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@1.100.0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: cargo test --release --locked
+      - run: npm run test:sdk
+      - name: HTTP and SDK end-to-end
+        env:
+          SANDBOXRUN_API_KEY: sandboxrun-local-test-key-not-for-production
+        run: |
+          target/release/sandboxrun-server > server.log 2>&1 &
+          SERVER_PID=$!
+          trap 'kill "$SERVER_PID"' EXIT
+          for attempt in $(seq 1 60); do
+            curl -fsS http://127.0.0.1:18787/api/health && break
+            sleep 1
+          done
+          node scripts/e2e.mjs
+          npm run test:e2e
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: verification-evidence
+          path: |
+            docs/escape-results.json
+            server.log
