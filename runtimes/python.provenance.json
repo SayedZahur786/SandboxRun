@@ -1,0 +1,64 @@
+{
+  "runtime": "CPython",
+  "version": "3.15.2",
+  "target": "wasm32-wasip1",
+  "artifact": "python.wasm",
+  "sha256": "6adfb4b3637ea02008f1e32be1a4604465848ac12c2d6069779c389f6ceade58",
+  "bytes": 19221994,
+  "virtual_filesystem": "wasi-vfs 0.6.3, immutable embedded /lib, no host preopens",
+  "required_environment": {
+    "PYTHONHOME": "/"
+  },
+  "arguments": [
+    "python",
+    "-S",
+    "-P",
+    "-B",
+    "-c",
+    "SOURCE"
+  ],
+  "sources": [
+    {
+      "url": "https://github.com/brettcannon/cpython-wasi-build/releases/download/v3.15.2/_build-python-3.15.2-wasi_sdk-33.zip",
+      "sha256": "ad47177fb168b2acd527464c2cff7fd2b215a539fabbf4aca0f158f6e2dde629",
+      "verified_against": "GitHub release asset digest"
+    },
+    {
+      "url": "https://github.com/brettcannon/cpython-wasi-build/releases/download/v3.15.2/python-3.15.2-wasi_sdk-33.zip",
+      "sha256": "b8a63559c56760bbdc310dedb74fd69d10bcbafae26b705bea0ad353ad256888",
+      "verified_against": "GitHub release asset digest"
+    },
+    {
+      "url": "https://github.com/kateinoigakukun/wasi-vfs/releases/download/v0.6.3/libwasi_vfs-wasm32-unknown-unknown.zip",
+      "sha256": "f94dc7fdabdefc0fed78b70f1ab100207db0558cbabb004dd9e5a0bdeec4256f",
+      "verified_against": "GitHub release asset digest"
+    },
+    {
+      "url": "https://github.com/kateinoigakukun/wasi-vfs/releases/download/v0.6.3/wasi-vfs-cli-aarch64-apple-darwin.zip",
+      "sha256": "d9ebf1cb77927b39c543dccb3fc35842b0f14ca8f70223de1daf2585896de3c1",
+      "verified_against": "GitHub release asset digest"
+    },
+    {
+      "url": "https://github.com/WebAssembly/wasi-sdk/releases/download/wasi-sdk-33/wasi-sdk-33.0-arm64-macos.tar.gz",
+      "sha256": "85c997a2665ead91673b5bb88b7d0df3fc8900df3bfa244f720d478187bbdc78",
+      "verified_against": "GitHub release asset digest"
+    }
+  ],
+  "build_commands": [
+    "cd build && ../wasi-sdk-33.0-arm64-macos/bin/clang -o ../python-vfs.wasm -z stack-size=16777216 -Wl,--stack-first -Wl,--initial-memory=41943040 Programs/python.o libpython3.15.a Modules/_hacl/*.a Modules/expat/libexpat.a ../vfs/libwasi_vfs.a -ldl -lwasi-emulated-signal -lwasi-emulated-getpid -lwasi-emulated-process-clocks -lpthread -lm",
+    "./cli/wasi-vfs pack python-vfs.wasm --mapdir /lib::./python/lib -o python-packed.wasm",
+    "./wasi-sdk-33.0-arm64-macos/bin/llvm-strip python-packed.wasm -o python.wasm"
+  ],
+  "verification": {
+    "host_runtime": "Wasmtime 50.0.2 macOS arm64",
+    "host_preopens": [],
+    "success": "import sys,json,math; math.sqrt(81) -> 9.0",
+    "denials": {
+      "read /etc/passwd": "ENOENT 44",
+      "write /etc/passwd": "ENOENT 44",
+      "write /lib/../../etc/passwd": "ENOTDIR 54",
+      "write /tmp/sandboxrun-canary": "ENOENT 44",
+      "write /lib/python3.15/os.py": "OSError 58"
+    }
+  }
+}
