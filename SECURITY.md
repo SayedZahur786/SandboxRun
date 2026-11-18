@@ -14,7 +14,7 @@ No response deadline or bounty is promised. Do not test third-party deployments 
 
 Untrusted source and stdin run inside fixed Python/QuickJS WASI interpreter modules, hosted by Wasmtime. Fresh instances receive no host directory preopens, no inherited environment, no network access, and no process-spawning grant. Python has an embedded immutable standard library, not a host filesystem mount. Its explicitly configured `PYTHONHOME` is not inherited host configuration.
 
-Fuel, epoch interruption, guest linear-memory limits, output ceilings, input validation, and admission bounds constrain execution. Guest linear-memory limits do not cover all server-process allocations. Provider/container/process limits remain necessary defense in depth. WASI `poll_oneoff` is denied so guest sleeping cannot create an uninterruptible host wait.
+Fuel, epoch interruption, guest linear-memory limits, output ceilings, input validation, and admission bounds constrain execution. Guest linear-memory limits do not cover all server-process allocations. Provider/container/process limits remain necessary defense in depth. WASI `poll_oneoff` triggers a typed host trap, reported as `capability_denied`, so guest code cannot catch an unsupported-operation errno and continue after attempting a blocking poll. Python sleep attempts that reach this import terminate. QuickJS `os.sleep` returns `-58` (unsupported) without blocking.
 
 Only trusted ahead-of-time compiled artifacts embedded by the build script are deserialized; user-provided or mutable external compiled artifacts are never accepted. The build script verifies the interpreter hashes before compilation.
 

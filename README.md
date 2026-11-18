@@ -68,7 +68,7 @@ A request contains `language` (`python` or `javascript`), `code`, optional `stdi
 
 A low accepted memory budget may be insufficient to instantiate an interpreter. The CPU budget includes interpreter work. Network transit and service initialization are separate from execution duration. Interpreter compilation happens at build time. Concurrency is limited to two requests per service instance; this is not a global account quota across scaled instances.
 
-An accepted execution returns HTTP 200 with `request_id`, `status`, `stdout`, `stderr`, `duration_ms`, `fuel_consumed`, effective `limits`, `runtime`, and `output_truncated`. Statuses are `ok`, `guest_error`, `fuel_limit`, `time_limit`, `memory_limit`, `output_limit`, or `trap`. A memory allocation failure can also appear as a guest error or trap depending on how the interpreter handles it; use the receipt and stderr together.
+An accepted execution returns HTTP 200 with `request_id`, `status`, `stdout`, `stderr`, `duration_ms`, `fuel_consumed`, effective `limits`, `runtime`, and `output_truncated`. Statuses are `ok`, `guest_error`, `fuel_limit`, `time_limit`, `memory_limit`, `output_limit`, `capability_denied`, or `trap`. A memory allocation failure can also appear as a guest error or trap depending on how the interpreter handles it; use the receipt and stderr together.
 
 Admission failures use HTTP 400 for invalid requests, 401 for invalid credentials, 413 for oversized bodies, 429 for full per-instance execution capacity, and 503 for an unavailable runtime. Do not treat a guest failure as a transport failure or retry executions implicitly.
 
@@ -126,7 +126,7 @@ fn main() -> wasmtime::Result<()> {
 
 - **Python:** CPython 3.15.2 with wasi-vfs 0.6.3. The standard library is embedded at an immutable guest `/lib`; no host filesystem directories are preopened. `PYTHONHOME=/` is explicitly supplied for the guest; host environment variables are not inherited. Site initialization and bytecode writes are disabled. See [artifact provenance and rebuild inputs](runtimes/python.provenance.json).
 - **JavaScript:** QuickJS-NG 0.18.0 with its `std`/`os` helpers enabled by `--std`. This is not Node.js: no Node modules, npm installation, or Node compatibility is promised. A helper’s existence does not grant host capabilities; filesystem operations still have no host preopens.
-- **Waiting:** WASI `poll_oneoff` is denied. Sleeping and polling operations that need it are unsupported, because a blocking host wait would not be interrupted by guest epoch checks.
+- **Waiting:** invoking WASI `poll_oneoff` triggers a typed host trap and terminates the guest with `capability_denied`; it does not return a recoverable unsupported-operation errno. Python sleep attempts that reach this import terminate. QuickJS `os.sleep` returns `-58` (unsupported) without blocking. Sleeping and polling are unsupported because a blocking host wait would not be interrupted by guest epoch checks.
 - **State:** no persistent sessions, host mounts, network grants, or arbitrary user Wasm upload. Each execution receives a fresh Store and WASI context.
 
 ## Verification and evidence

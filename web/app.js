@@ -14,6 +14,16 @@ const snippets = {
     filesystem: `// QuickJS exposes std helpers, but no host directories are granted.\nconst file = std.open("/etc/passwd", "r");\nif (file === null) {\n  console.log("Denied: host file is not accessible.");\n} else {\n  console.log(file.readAsString());\n  file.close();\n}`
   }
 };
+const statusLabels = {
+  ok: 'Completed',
+  guest_error: 'Guest error',
+  fuel_limit: 'Fuel limit',
+  time_limit: 'Time limit',
+  memory_limit: 'Memory limit',
+  output_limit: 'Output limit',
+  capability_denied: 'Capability denied',
+  trap: 'Guest trap'
+};
 let running = false;
 let lastReceipt = null;
 const fields = { fuel: 'fuel', memory_bytes: 'memory', wall_time_ms: 'wall', output_bytes: 'output' };
@@ -77,9 +87,9 @@ async function execute(event) {
       throw new Error(`HTTP ${response.status}: ${detail}`);
     }
     lastReceipt = data;
-    $('result-state').textContent = data.status === 'ok' ? 'COMPLETED' : 'TERMINATED';
+    $('result-state').textContent = (statusLabels[data.status] || 'Unknown status').toUpperCase();
     $('result-state').className = `result-state ${data.status === 'ok' ? 'success' : 'error'}`;
-    $('metric-status').textContent = String(data.status);
+    $('metric-status').textContent = statusLabels[data.status] || String(data.status);
     $('metric-duration').textContent = `${Number(data.duration_ms).toLocaleString(undefined, { maximumFractionDigits: 2 })} ms`;
     $('metric-fuel').textContent = Number(data.fuel_consumed).toLocaleString();
     $('metric-truncated').textContent = data.output_truncated ? 'Yes' : 'No';
@@ -88,7 +98,7 @@ async function execute(event) {
     $('receipt-json').textContent = JSON.stringify(data, null, 2);
     for (const id of ['receipt-metrics', 'streams', 'raw-receipt']) $(id).hidden = false;
     $('copy-result').disabled = false;
-    setMessage(`Request ${data.request_id}. Output is untrusted guest data.`, data.status !== 'ok');
+    setMessage(`Request ${data.request_id}. ${data.status === 'capability_denied' ? 'A disallowed blocking WASI operation terminated the guest. ' : ''}Output is untrusted guest data.`, data.status !== 'ok');
   } catch (error) {
     $('result-state').textContent = 'REQUEST FAILED';
     $('result-state').className = 'result-state error';

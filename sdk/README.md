@@ -35,6 +35,8 @@ try {
 }
 ```
 
+`ExecutionStatus` is an exported union of `ok`, `guest_error`, `fuel_limit`, `time_limit`, `memory_limit`, `output_limit`, `capability_denied`, and `trap`. A disallowed blocking WASI poll terminates the guest with `capability_denied`.
+
 `run` returns the receipt without interpreting guest output. Treat output as untrusted data. The client uses `redirect: 'error'` to avoid forwarding authenticated execution requests through redirects. Capability discovery sends no API key.
 
 Run the end-to-end test against a running local server with `npm run test:e2e`. It defaults to `http://127.0.0.1:18787` and the repository's non-production local test key. Set `SANDBOXRUN_BASE_URL` and `SANDBOXRUN_API_KEY` to test a different authorized deployment. The test executes Python and asserts the actual receipt, parsed output, and fuel accounting.

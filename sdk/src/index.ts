@@ -1,4 +1,13 @@
 export type Language = "python" | "javascript";
+export type ExecutionStatus =
+  | "ok"
+  | "guest_error"
+  | "fuel_limit"
+  | "time_limit"
+  | "memory_limit"
+  | "output_limit"
+  | "capability_denied"
+  | "trap";
 export interface Limits {
   fuel: number;
   memory_bytes: number;
@@ -14,7 +23,7 @@ export interface ExecuteRequest {
 /** A completed guest run is returned even when the guest fails. */
 export interface ExecutionReceipt {
   request_id: string;
-  status: string;
+  status: ExecutionStatus;
   stdout: string;
   stderr: string;
   duration_ms: number;

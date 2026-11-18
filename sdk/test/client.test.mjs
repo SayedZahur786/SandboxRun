@@ -4,7 +4,7 @@ import { SandboxRun, SandboxRunError } from '../dist/index.js';
 
 test('sends one authenticated request and preserves a limit receipt', async () => {
   let calls = 0;
-  const receipt = { request_id: 'test-run', status: 'fuel_exhausted', stdout: '', stderr: '', duration_ms: 4, fuel_consumed: 100, limits: { fuel: 100, memory_bytes: 65536, wall_time_ms: 100, output_bytes: 100 }, runtime: 'test', output_truncated: false };
+  const receipt = { request_id: 'test-run', status: 'fuel_limit', stdout: '', stderr: '', duration_ms: 4, fuel_consumed: 100, limits: { fuel: 100, memory_bytes: 65536, wall_time_ms: 100, output_bytes: 100 }, runtime: 'test', output_truncated: false };
   const client = new SandboxRun({ baseUrl: 'https://example.test/', apiKey: 'test-key', fetch: async (url, init) => {
     calls++;
     assert.equal(url, 'https://example.test/api/run');
